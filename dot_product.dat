@@ -1,0 +1,234 @@
+Instructions:
+        Op
+addi, 	001000 (8) addi rt, rs, imm add immediate [rt] = [rs] + SignImm 
+addiu, 	001001 (9) addiu rt, rs, imm add immediate unsigned [rt] = [rs] + SignImm
+andi, 	001100 (12) andi rt, rs, imm and immediate [rt] = [rs] & ZeroImm
+ori, 	001101 (13) ori rt, rs, imm or immediate [rt] = [rs] | ZeroImm
+xori, 	001110 (14) xori rt, rs, imm xor immediate [rt] = [rs] ^ ZeroImm
+slti, 	001010 (10) slti rt, rs, imm set less than immediate [rs] < SignImm ? [rt] = l : [rt] = 0
+sltiu, 	001011 (11) sltiu rt, rs, imm set less than immediate unsigned [rs] < SignImm ? [rt] = l : [rt] = 0
+lw, 	100011 (35) lw rt, imm(rs) load word [rt] = [Address]
+sw, 	101011 (43) sw rt, imm(rs) store word [Address] = [rt]
+lui, 	001111 (15) lui rt, imm load upper immediate [rt] = {imm, 16'b0}
+j,	000010 (2) j label jump PC = JTA
+bne,	000101 (5) bne rs, rt, label branch if not equal if ([rs] != [rt]) PC = BTA 
+beq, 	000100 (4) beq rs, rt, label branch if equal if ([rs] == [rt]) PC = BTA
+
+        Func
+mult, 	011000 (24) mult rs, rt multiply {[hi], [lo]} = [rs] × [rt]
+multu,	011001 (25) multu rs, rt multiply unsigned {[hi], [lo]} = [rs] × [rt]
+add, 	100000 (32) add rd, rs, rt add [rd] = [rs] + [rt]
+addu,	100001 (33) addu rd, rs, rt add unsigned [rd] = [rs] + [rt]
+sub, 	100010 (34) sub rd, rs, rt subtract [rd] = [rs] ? [rt]
+subu, 	100011 (35) subu rd, rs, rt subtract unsigned [rd] = [rs] ? [rt]
+and, 	100100 (36) and rd, rs, rt and [rd] = [rs] & [rt]
+or, 	100101 (37) or rd, rs, rt or [rd] = [rs] | [rt]
+xor, 	100110 (38) xor rd, rs, rt xor [rd] = [rs] ^ [rt]
+xnor,   111111
+slt, 	101010 (42) slt rd, rs, rt set less than [rs] < [rt] ? [rd] = 1 : [rd] = 0
+sltu, 	101011 (43) sltu rd, rs, rt set less than unsigned [rs] < [rt] ? [rd] = 1 : [rd] = 0
+
+
+
+$0 0    $at 1    $v0 2    $v1 3
+$a0 4   $a1 5    $a2 6    $a3 7
+$t0 8   $t1 9    $t2 10   $t3 11
+$t4 12  $t5 13   $t6 14   $t7 15
+$s0 16  $s1 17   $s2 18   $s3 19
+$s4 20  $s5 21   $s6 22   $s7 23
+$t8 24  $t9 25   $k0 26   $k1 27
+$gp 28  $sp 29   $fp 30   $ra 31
+
+
+To test your processor, find the dot product of the following vectors:
+V1 = [28,   110, -41,  23,   -67 ]
+V2 = [-240, 91,  -101, 150,  88  ]
+
+V2_T = [-240, 
+	91,  
+	-101, 
+	150,  
+	88]
+
+28 * -240 = -6720
+110 * 91 = 10010
+-41 * -101 = 4141
+23 * 150 = 3450
+-67 * 88 = -5896
+
+
+/*****************************************/
+addi $t0($8)  $0 28  
+addi $t1($9)  $0 110
+addi $t2($10) $0 -41  
+addi $t3($11) $0 23
+addi $t4($12) $0 -67 
+
+ADDI rt  rs    imm
+ADDI $t8($24) $zero 80     
+001000 00000 11000 0000000001010000
+?20180050?
+LW $t0($8), $t8($24), 0
+100011 11000 01000 00000000 00000000
+             20:16
+00100000000000000000000000000000
+
+ADDI $t8($24) $t8($24) 1     
+001000 11000 11000 0000000000000001
+
+LW $t1($9), $t8($24), 0
+100011 11000 01001 00000000 00000000
+
+
+
+ADDI rt  rs    imm
+ADDI $t1($8) $zero 28     
+001000 00000 01001 0000000000011100?
+
+ADDI rt  rs    imm
+ADDI $t1($9) $zero 110     #t1 = 1
+001000 00000 01001 0000000001101110
+
+ADDI rt  rs    imm
+ADDI $t2($10) $zero -41     #t2 = 1
+001000 00000 01010 1111111111010111
+
+ADDI rt  rs    imm
+ADDI $t3($11) $zero 23     #t3 = 1
+001000 00000 01011 0000000000010111
+
+ADDI rt  rs    imm
+ADDI $t4($12) $zero -67     #t4 = 1
+001000 00000 01100  11111111110111101
+
+0x4019FFBD
+
+
+addi $s0 $0 -240  
+addi $s1 $0 91
+addi $s2 $0 -101  
+addi $s3 $0 150
+addi $s4 $0 88 
+
+ADDI rt  rs    imm
+ADDI $s0($16) $zero -240     #s0 = -240
+001000 00000 10000 ?1111111100010000
+0x2010FF10
+ADDI rt  rs    imm
+ADDI $s1($17) $zero 91     #s0 = 91
+001000 00000 10001 ?0000000001011011
+0x2011005B
+ADDI rt  rs    imm
+ADDI $s2($18) $zero -101     #s0 = -101
+001000 00000 10010 ?1111111110011011
+0x2012FF9B
+ADDI rt  rs    imm
+ADDI $s3($19) $zero 150     #s0 = 150
+001000 00000 10011 ?0000000010010110
+0x23130096
+ADDI rt  rs    imm
+ADDI $s4($20) $zero 88     #s0 = 88
+001000 00000 10100 ?0000000001011000
+0x20140058
+
+
+ADDI $0 $0 
+00100000000000000000000000000000
+/****************************************/
+
+
+
+
+mult $t0,$s0
+mflo $a0
+mult $t1,$s1
+mflo $a1
+mult $t2,$s2
+mflo $a2
+mult $t3,$s3
+mflo $a3
+mult $t4,$s4
+mflo $a4
+
+
+MULT rt rd 
+MULT $t0($8) $s0($16)
+000000 01000 10000 00000 00000 011000
+01100018
+
+
+MFLO rd
+MFLO $a0($4)
+000000 00000 00000 00100 00000 010010
+
+MULT rt rd 
+MULT $t1($9) $s0($17)
+000000 01001 10001 00000 00000 011000
+
+MFLO rd
+MFLO $a1($5)
+000000 00000 00000 00101 00000 010010
+
+MULT rt rd 
+MULT $t1($10) $s0($18)
+000000 01010 10010 00000 00000 011000
+0x01520018
+?
+MFLO rd
+MFLO $a1($6)
+000000 00000 00000 00110 00000 010010
+
+MULT rt rd 
+MULT $t1($11) $s0($19)
+000000 01011 10011 00000 00000 011000
+
+0x01730018?
+
+
+MFLO rd
+MFLO $a1($7)
+000000 00000 00000 00111 00000 010010
+
+MULT rt rd 
+MULT $t1($12) $s0($20)
+000000 01100 10100 00000 00000 011000
+
+MFLO rd
+MFLO $a1($8)
+000000 00000 00000 01000 00000 010010
+
+
+//ADDs the sums of dot products
+
+add $t7, $a0, $a1
+add $t7, $t7, $a2
+add $t7, $t7, $a3
+add $t7, $t7, $a4
+add $t7, $t7, $a5
+
+ADD rd,      rs,      rt add [rd] = [rs] + [rt]    //calculate upper limit of for loop
+ADD $t7($15) $a0($4) $a1($5)
+	(rs)  (rt)  (rd)
+000000 00100 00101 01111 00000 100000
+
+
+ADD rd,      rs,      rt add [rd] = [rs] + [rt]    //calculate upper limit of for loop
+ADD $t7($15) $t7($15) $a2($6)
+	(rs)  (rt)  (rd)
+000000 01111 00110 01111 00000 100000
+
+ADD rd,      rs,      rt add [rd] = [rs] + [rt]    //calculate upper limit of for loop
+ADD $t7($15) $t7($15) $a3($7)
+	(rs)  (rt)  (rd)
+000000 01111 00111 01111 00000 100000
+
+
+ADD rd,      rs,      rt add [rd] = [rs] + [rt]    //calculate upper limit of for loop
+ADD $t7($15) $t7($15) $a4($8)
+	(rs)  (rt)  (rd)
+000000 01111 01000 01111 00000 100000
+
+ADDI
+
+
+

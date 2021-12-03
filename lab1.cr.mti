@@ -1,0 +1,131 @@
+C:/Users/slab_luyao/Desktop/Lab3/controller.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/controller.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module controller
+
+Top level modules:
+	controller
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/cache.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/cache.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module cache
+
+Top level modules:
+	cache
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/reg_file.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/reg_file.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+flat_compact(): DATABASE ERROR: cannot insert fileid=-1 exemptname=(null) into auxiliary database (path=C:/Users/slab_luyao/Desktop/Lab3/work auxid=1, gen=1181)
+-- Compiling module regfile
+
+Top level modules:
+	regfile
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/global_reg.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/global_reg.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module global_reg
+
+Top level modules:
+	global_reg
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/mult_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/mult_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult_tb
+
+Top level modules:
+	mult_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/alu_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/alu_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module alu_tb
+
+Top level modules:
+	alu_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/branch_target_predictor_buffer.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/branch_target_predictor_buffer.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module branch_target_predictor_buffer
+
+Top level modules:
+	branch_target_predictor_buffer
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/TOP_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/TOP_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module TOP_tb
+
+Top level modules:
+	TOP_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/alu.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/alu.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module ALU
+
+Top level modules:
+	ALU
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/mult.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/mult.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult
+
+Top level modules:
+	mult
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/hazard.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/hazard.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module hazard
+
+Top level modules:
+	hazard
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/data_memory.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/data_memory.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+flat_compact(): DATABASE ERROR: cannot insert fileid=-1 exemptname=(null) into auxiliary database (path=C:/Users/slab_luyao/Desktop/Lab3/work auxid=1, gen=1181)
+-- Compiling module data_memory
+
+Top level modules:
+	data_memory
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/data_path_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/data_path_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/inst_memory.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/inst_memory.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module instr_memory
+
+Top level modules:
+	instr_memory
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/controller_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/controller_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module controller_tb
+
+Top level modules:
+	controller_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/cache_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/cache_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module cache_tb
+
+Top level modules:
+	cache_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/branch_target_tb.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/branch_target_tb.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module branch_target_tb
+
+Top level modules:
+	branch_target_tb
+
+} {} {}} C:/Users/slab_luyao/Desktop/Lab3/pipeline_reg_def.v {1 {vlog -work work -stats=none C:/Users/slab_luyao/Desktop/Lab3/pipeline_reg_def.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module Pipeline_RegFD
+-- Compiling module Pipeline_RegDE
+-- Compiling module Pipeline_RegEM
+-- Compiling module Pipeline_RegMW
+
+Top level modules:
+	Pipeline_RegFD
+	Pipeline_RegDE
+	Pipeline_RegEM
+	Pipeline_RegMW
+
+} {} {}}

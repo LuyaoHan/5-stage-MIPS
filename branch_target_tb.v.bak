@@ -1,0 +1,49 @@
+module branch_target_tb();
+
+reg clk, update,access;
+reg [31:0] PC_F;
+reg [31:0] branchUpdatePC,branchUpdateTarget;
+wire [31:0] predictPC;
+wire [1:0] state;
+
+
+
+branch_target_predictor_buffer branch_target_predictor_buffer(
+	.clk(clk),
+	.PC_F(PC_F), 
+	.branchUpdatePC(branchUpdatePC),
+	.branchUpdateTarget(branchUpdateTarget),
+	.access(access),
+	.update(update),		//update enables write to the branch buffer
+	.predictPC(predictPC), 
+	.found(found),
+	.state(state)
+);
+
+
+initial begin
+	clk = 1;
+	forever #10 clk = ~clk;	//initiate clock sequence
+end
+
+
+initial begin
+	update <= 1;	//mimic a write at execution stage
+	access <= 0;    //access is 0 because at execution we never try to access
+	PC_F <= 32'hx;	//enter current PC, should write next PC
+	branchUpdatePC <= 32'h0000002C;		//for entry registering
+	branchUpdateTarget <= 32'h00000014;	//branch target
+	
+	#40
+	update <= 0;
+	access <= 1;
+	PC_F <= 32'h0000002C;	//check the target that just got stored
+
+	
+
+end
+
+
+
+
+endmodule

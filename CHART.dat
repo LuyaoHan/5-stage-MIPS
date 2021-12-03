@@ -1,0 +1,20 @@
+220080001 ADDI F D E x W
+34090004 ORI    F D
+21100004 ADDI     F D
+21110003 ADDI       F D      
+01095026 XOR          F D
+0109583F XNOR           F D
+02110018 MULT             F D
+00006012 MFLO               F D ..32.. D 
+02288822 SUB                           F D
+20080001 ADDI                            F D
+01910018 MULT                              F D
+00006012 MFLO                                F D ..32.. D                      
+02288822 SUB                                            F D
+20080001 ADDI                                             F D                            
+01910018 MULT                                               F D
+00006012 MFLO                                                 F D ..32.. D 
+02288822 SUB                                                             F D
+20080001 ADDI                                                              F D 
+01910018 MULT                                                                F D
+00006012 MFLO                                                                  F D ..32.. D 

@@ -1,0 +1,109 @@
+module branch_target_predictor_buffer(
+	input clk,
+	input [31:0] branching_addressF, 
+	input access,
+	input update,		//update enables write to the branch buffer
+        input [31:0] branchUpdatePC,
+	input [31:0] branchUpdateTarget,
+        output found,
+	output [31:0] predictPC, 
+	output reg [1:0] state);
+
+/*
+The entries should have #rows of PC/4 because PC is incremented in 4 
+	    should have #columns of 3 
+			[33:32]: state (prediction state bit)
+			[31:0] : predictPC 
+			[49:34] : *DEBUG* signal, stores the lower 16 bits of PC
+*/
+reg [33:0] entries [63:0]; 	//33 bits * 64 rows
+//reg found; //local reg used to record found 
+
+parameter N = 2'b00;
+parameter NT = 2'b01;
+parameter TN = 2'b10;
+parameter T = 2'b11;
+
+
+//initialize other state registers
+//initialize entries
+integer i;
+initial begin
+    for(i=0;i<64;i=i+1) begin	//replicate initializing the memory block  
+      entries[i] <= -34'd1;
+    end
+end
+
+//the reason updatePC is separated from PC_F is that when update, it is already in the execution stage
+//wire [31:0] branchUpdatePC_plus4;
+//assign branchUpdatePC_plus4 = branchUpdatePC + 4;
+
+wire [5:0] entry_addr = update ?  ( branchUpdatePC[7:0] >> 2) : (branching_addressF[7:0] >> 2) ;  
+	//entry address = input PC[7:0] >> 2
+
+reg [33:0] __that_whole_entry;  //*just for DEBUG purpose! not used any where else
+
+assign predictPC = (access) ? entries[entry_addr][31:0] : 32'b0;
+assign found = (entries[entry_addr][31:0] != -1) && access;
+
+always@(posedge clk)begin
+	/*
+	if(access)begin
+		__that_whole_entry <= entries[entry_addr];
+		if(entries[entry_addr][31:0] != 32'b0)begin	//output predict PC
+			predictPC <= entries[entry_addr][31:0];
+			found <= 1'b1; //used to update SM
+		end
+		else begin
+			found <= 1'b0;
+		end
+	end
+	*/
+	/*update State Machine*/
+        if(update)begin
+	case (entries[entry_addr][33:32])
+		N: begin
+		  if(found)
+			entries[entry_addr][33:32] <= NT;
+		  else 
+			entries[entry_addr][33:32] <= N;
+		end
+		NT: begin
+		  if(found)
+			entries[entry_addr][33:32] <= TN;
+		  else 
+			entries[entry_addr][33:32] <= N;
+		end
+		TN: begin
+		 if(found)
+			entries[entry_addr][33:32] <= T;
+		 else 
+			entries[entry_addr][33:32] <= NT;
+		end
+		T: begin
+		  if(found)
+			entries[entry_addr][33:32] <= T;
+		  else 
+			entries[entry_addr][33:32] <= TN;
+		end
+	endcase
+        end
+ 
+	//write to the branch buffer
+	if(update)begin
+		entries[entry_addr][31:0] <= branchUpdateTarget ; //Enter branch instruction address and next PC into branch-target buffer. 
+		//entries[entry_addr][49:34] <= PC_in_plus4[15:0];
+	end
+
+
+	
+	//assign state for datapath. In datapath state is used to recognize if flush are needed for book keep instructions
+	assign state = entries[entry_addr][33:32];
+	
+
+
+end
+
+
+
+endmodule
